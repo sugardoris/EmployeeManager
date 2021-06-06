@@ -1,9 +1,10 @@
 ﻿using EmployeeManager.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManager.DAL
 {
-    public class EmployeeManagerDbContext : DbContext
+    public class EmployeeManagerDbContext : IdentityDbContext<AppUser>
     {
         public EmployeeManagerDbContext(DbContextOptions<EmployeeManagerDbContext> options) : base(options)
         {
