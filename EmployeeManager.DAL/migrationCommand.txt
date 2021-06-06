@@ -1,0 +1,2 @@
+dotnet ef migrations add Authorisation --startup-project ../EmployeeManager.Web --context EmployeeManagerDbContext
+dotnet ef database update --startup-project ../EmployeeManager.Web --context EmployeeManagerDbContext
