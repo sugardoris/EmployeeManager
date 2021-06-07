@@ -1,0 +1,16 @@
+﻿@using EmployeeManager.Model
+@model List<Student>
+
+@{
+    ViewData["Title"] = "Studenti";
+}
+
+<h1>Popis studenata</h1>
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+	<partial name="_StudentFilter" model="new StudentFilterModel()" />
+</div>
+
+<div style="margin-top: 30px">
+	<partial name="_StudentsTable"/>
+</div>

@@ -1,0 +1,60 @@
+﻿@model EmployeeManager.Model.Student
+
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h1>Detalji o studentu</h1>
+
+@if (Model != null)
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Popis studenata</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.FullName</li>
+        </ol>
+    </nav>
+
+    <div>
+        <h4>Student</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Ime i prezime:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+            <dt>
+                Email:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                Broj mobitela:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+            <dt>
+                Grad:
+            </dt>
+            <dd>
+                @Model.City.Name
+            </dd>
+        </dl>
+
+        @* <div> *@
+        @*     <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary">Uredi</a> *@
+        @* </div> *@
+    </div>
+
+}
+else
+{
+    <div class="alert alert-danger">
+        Ne postoji taj student u sustavu.
+    </div>
+
+}
