@@ -1,0 +1,16 @@
+﻿@using EmployeeManager.Model
+@model List<League>
+
+@{
+    ViewData["Title"] = "Lige";
+}
+
+<h1>Popis liga</h1>
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+    <partial name="_LeagueFilter" model="new LeagueFilterModel()" />
+</div>
+
+<div style="margin-top: 30px">
+    <partial name="_LeagueTable"/>
+</div>

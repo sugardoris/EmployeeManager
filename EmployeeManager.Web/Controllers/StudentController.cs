@@ -18,8 +18,7 @@ namespace EmployeeManager.Controllers
         {
             _dbContext = dbContext;
         }
-
-        // GET
+        
         public IActionResult Index(StudentFilterModel filter)
         {
             var studentQuery = this._dbContext.Students

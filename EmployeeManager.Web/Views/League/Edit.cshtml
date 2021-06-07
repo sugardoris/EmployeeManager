@@ -1,0 +1,21 @@
+﻿@model EmployeeManager.Model.League
+
+@{
+    ViewData["Title"] = "Uređivanje lige";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Popis liga</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Uređivanje lige</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <partial name="_CreateOrEdit" />
+        </form>
+    </div>
+</div>

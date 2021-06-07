@@ -1,0 +1,27 @@
+﻿@using EmployeeManager.Model
+@model List<League>
+
+<table style="margin-top: 20px;" class="table table-condensed" id="tbl-league">
+	<thead>
+		<tr>
+			<th>Liga</th>
+			<th>Broj kola</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				<a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+			</td>
+			<td>@item.NumberOfGameweeks</td>
+			<td>
+				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+			</td>
+		</tr>
+		}
+	</tbody>
+</table>
+
