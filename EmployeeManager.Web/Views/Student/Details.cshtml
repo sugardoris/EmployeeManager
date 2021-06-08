@@ -4,52 +4,48 @@
     ViewData["Title"] = "Detalji";
 }
 
-<h1>Detalji o studentu</h1>
+<style>
+</style>
+
+<h2 style="margin-bottom: 20px">Detalji o studentu</h2>
 
 @if (Model != null)
 {
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-action="Index">Popis studenata</a></li>
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item"><a class="text-dark" asp-action="Index">Popis studenata</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.FullName</li>
         </ol>
     </nav>
+    
+    <div class="wrapper row ml-2" style="margin-top: 40px">
+        
+        <div class="card col-5 box-shadow mr-3 p-2">
+            <div class="card-body">
+                <h4 style="margin-bottom: 15px">@Html.DisplayFor(model => model.FullName)</h4>
+                <p class="card-text"><strong>Email:</strong> @Html.DisplayFor(model => model.Email)</p>
+                <p class="card-text"><strong>Broj mobitela:</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
+                <p class="card-text"><strong>Grad:</strong> @Model.City.Name</p>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Uredi</a>
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                        data-target="#deleteStudent">Obriši</button>
+            </div></div>
 
-    <div>
-        <h4>Student</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                Ime i prezime:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FullName)
-            </dd>
-            <dt>
-                Email:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt>
-                Broj mobitela:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.PhoneNumber)
-            </dd>
-            <dt>
-                Grad:
-            </dt>
-            <dd>
-                @Model.City.Name
-            </dd>
-        </dl>
-
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Uredi</a>
+        <div class="card col-5 box-shadow p-2">
+            <div class="card-body">
+                <h4 style="margin-bottom: 15px">Tekući mjesec</h4>
+                <p class="card-text"><strong>Ukupan broj kola: </strong>@ViewBag.Gameweeks</p>
+                <p class="card-text"><strong>Ukupan broj utakmica: </strong>@ViewBag.Games</p>
+                <p class="card-text"><strong>Broj odrađenih sati: </strong>@ViewBag.Hours</p>
+                <p class="card-text"><strong>Ugovor za tekući mjesec: </strong>@ViewBag.Contract</p>
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#deleteStudent">Dodaj kolo</button>
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#deleteStudent">Dodaj ugovor</button>
+            </div>
         </div>
-    </div>
 
+    </div>
 }
 else
 {
@@ -58,3 +54,27 @@ else
     </div>
 
 }
+
+<div class="modal fade" id="deleteStudent" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteLabel">Brisanje studenta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Želite li izbrisati studenta?</h6>
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Da</a>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Ne</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

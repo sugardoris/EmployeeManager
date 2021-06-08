@@ -1,8 +1,13 @@
 ﻿@using EmployeeManager.Model
 @model List<Student>
 
-<table style="margin-top: 20px;" class="table table-condensed" id="tbl-clients">
-	<thead>
+<style>
+	.studentLink {color: black;}
+	.studentLink:hover {color: #0275d8; text-decoration: none}
+</style>
+
+<table style="margin-top: 20px;" class="table" id="tbl-students">
+	<thead class="thead-light">
 		<tr>
 			<th>Student</th>
 			<th>Email</th>
@@ -15,12 +20,12 @@
 		{
 		<tr>
 			<td>
-				<a asp-action="Details" asp-route-id="@item.Id">@item.FullName</a>
+				<a class="studentLink" asp-action="Details" asp-route-id="@item.Id">@item.FullName</a>
 			</td>
 			<td>@item.Email</td>
 			<td>@item.City.Name</td>
-			<td>
-				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+			<td class="text-right">
+				<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Uredi</a>
 			</td>
 		</tr>
 		}

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManager.DAL;
@@ -51,12 +53,41 @@ namespace EmployeeManager.Controllers
                 .Include(p => p.City)
                 .FirstOrDefault(p => p.Id == id);
 
+            StudentContract? contract = student.Contracts?
+                .FirstOrDefault(p => p.ContractDate.Month.Equals(DateTime.Today.Month));
+            ViewBag.Contract = contract != null ? "DA" : "NE";
+
+            if (student.Gameweeks != null)
+            {
+                List<Gameweek> studentGameweeks = student.Gameweeks.ToList();
+                int numOfGameweeks = studentGameweeks
+                    .Count(p => (p.StartDate.Month.Equals(DateTime.Today.Month) &&
+                        p.StartDate.Day <= 27) || (p.StartDate.Month.Equals(DateTime.Today.Month - 1) && 
+                        p.StartDate.Day >= 28));
+                int numOfGames = 0;
+                foreach (var gameweek in studentGameweeks)
+                {
+                    numOfGames += gameweek.NumberOfGames;
+                }
+
+                int numHours = numOfGames * 2;
+                ViewBag.Gameweeks = numOfGameweeks;
+                ViewBag.Games = numOfGames;
+                ViewBag.Hours = numHours;
+            }
+            else
+            {
+                ViewBag.Gameweeks = 0;
+                ViewBag.Games = 0;
+                ViewBag.Hours = 0;
+            }
+
             return View(student);
         }
-        
+
         public IActionResult Create()
         {
-            this.FillDropdownValues();
+            this.FillDropdownValuesCities();
             return View();
         }
         
@@ -72,7 +103,7 @@ namespace EmployeeManager.Controllers
             }
             else
             {
-                this.FillDropdownValues();
+                this.FillDropdownValuesCities();
                 return View();
             }
         }
@@ -81,7 +112,7 @@ namespace EmployeeManager.Controllers
         public IActionResult Edit(int id)
         {
             var model = this._dbContext.Students.FirstOrDefault(c => c.Id == id);
-            this.FillDropdownValues();
+            this.FillDropdownValuesCities();
             return View(model);
         }
         
@@ -89,8 +120,8 @@ namespace EmployeeManager.Controllers
         [ActionName(nameof(Edit))]
         public async Task<IActionResult> EditPost(int id)
         {
-            var client = this._dbContext.Students.FirstOrDefault(c => c.Id == id);
-            var ok = await this.TryUpdateModelAsync(client);
+            var student = this._dbContext.Students.FirstOrDefault(c => c.Id == id);
+            var ok = await this.TryUpdateModelAsync(student);
 
             if (ok && this.ModelState.IsValid)
             {
@@ -98,11 +129,21 @@ namespace EmployeeManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            this.FillDropdownValues();
+            this.FillDropdownValuesCities();
             return View();
         }
         
-        private void FillDropdownValues()
+        public IActionResult Delete(int id)
+        {
+            var student = _dbContext.Students.FirstOrDefault(p => p.Id == id);
+
+            this._dbContext.Students.Remove(student);
+            this._dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        
+        private void FillDropdownValuesCities()
         {
             var selectItems = new List<SelectListItem>();
             

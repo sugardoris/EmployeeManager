@@ -28,6 +28,8 @@ namespace EmployeeManager.Model
         public int LeagueId { get; set; }
         public League League { get; set; }
         
-        public virtual ICollection<Student> Students { get; set; }
+        [ForeignKey(nameof(Student))]
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
     }
 }

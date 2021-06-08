@@ -15,26 +15,11 @@
         </ol>
     </nav>
 
-    <div>
-        <h4>Liga</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                Naziv:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                Broj kola:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfGameweeks)
-            </dd>
-        </dl>
-
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Uredi</a>
+    <div class="card col-4 box-shadow">
+        <div class="card-body">
+            <h4 class="card-title">@Html.DisplayFor(model => model.Name)</h4>
+            <p class="card-text"><strong>Broj kola:</strong> @Html.DisplayFor(model => model.NumberOfGameweeks)</p>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Uredi</a>
         </div>
     </div>
 

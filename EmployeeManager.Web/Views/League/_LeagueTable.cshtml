@@ -1,8 +1,13 @@
 ﻿@using EmployeeManager.Model
 @model List<League>
 
-<table style="margin-top: 20px;" class="table table-condensed" id="tbl-league">
-	<thead>
+<style>
+	.leagueLink {color: black;}
+	.leagueLink:hover {color: #0275d8; text-decoration: none}
+</style>
+
+<table style="margin-top: 20px;" class="table" id="tbl-league">
+	<thead class="thead-light">
 		<tr>
 			<th>Liga</th>
 			<th>Broj kola</th>
@@ -14,11 +19,11 @@
 		{
 		<tr>
 			<td>
-				<a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+				<a class="leagueLink" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
 			</td>
 			<td>@item.NumberOfGameweeks</td>
-			<td>
-				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+			<td class="text-right">
+				<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Uredi</a>
 			</td>
 		</tr>
 		}
