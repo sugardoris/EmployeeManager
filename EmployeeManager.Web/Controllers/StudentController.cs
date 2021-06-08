@@ -53,19 +53,23 @@ namespace EmployeeManager.Controllers
                 .Include(p => p.City)
                 .FirstOrDefault(p => p.Id == id);
 
-            StudentContract? contract = student.Contracts?
-                .FirstOrDefault(p => p.ContractDate.Month.Equals(DateTime.Today.Month));
+            StudentContract? contract = this._dbContext.StudentContracts
+                .FirstOrDefault(p => p.StudentId == id && p.ContractDate.Month.Equals(DateTime.Today.Month));
+            
             ViewBag.Contract = contract != null ? "DA" : "NE";
 
-            if (student.Gameweeks != null)
+            var gameweeks = this._dbContext.Gameweeks
+                .Where(p => p.StudentId == id)
+                .Where(p => (p.StartDate.Month.Equals(DateTime.Today.Month) &&
+                             p.StartDate.Day <= 27) || (p.StartDate.Month.Equals(DateTime.Today.Month - 1) &&
+                                                        p.StartDate.Day >= 28))
+                .ToList();
+
+            if (gameweeks.Count > 0)
             {
-                List<Gameweek> studentGameweeks = student.Gameweeks.ToList();
-                int numOfGameweeks = studentGameweeks
-                    .Count(p => (p.StartDate.Month.Equals(DateTime.Today.Month) &&
-                        p.StartDate.Day <= 27) || (p.StartDate.Month.Equals(DateTime.Today.Month - 1) && 
-                        p.StartDate.Day >= 28));
+                int numOfGameweeks = gameweeks.Count;
                 int numOfGames = 0;
-                foreach (var gameweek in studentGameweeks)
+                foreach (var gameweek in gameweeks)
                 {
                     numOfGames += gameweek.NumberOfGames;
                 }

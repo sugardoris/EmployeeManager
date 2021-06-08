@@ -1,0 +1,32 @@
+﻿@model EmployeeManager.Model.StudentContract
+
+@{
+    ViewData["Title"] = "Dodavanje novog ugovora";
+}
+
+<div class="col-md-4">
+    <form asp-action="Create">
+        
+        <div class="form-group">
+            <label class="control-label">Datum</label>
+            <div class="input-group date" data-provide="datepicker"
+                 data-date-format="@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()">
+                <input asp-for="ContractDate" type="text" class="form-control">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>                
+            </div>
+            <span asp-validation-for="ContractDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Student</label>
+            <select asp-for="StudentId" asp-items="ViewBag.PossibleStudents" class="form-control"></select>
+            <span asp-validation-for="StudentId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Spremi" class="btn btn-outline-success"/>
+        </div>
+    </form>
+</div>
