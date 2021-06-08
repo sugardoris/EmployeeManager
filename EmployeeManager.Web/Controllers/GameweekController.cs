@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EmployeeManager.DAL;
 using EmployeeManager.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManager.Controllers
 {
@@ -15,10 +17,21 @@ namespace EmployeeManager.Controllers
         {
             _dbContext = dbContext;
         }
+        
+        public IActionResult Index()
+        {
+            var gameweeks = this._dbContext.Gameweeks
+                .Include(p => p.League)
+                .Include(p => p.Student)
+                .ToList();
+
+            return View(gameweeks);
+        }
 
         public IActionResult Create()
         {
             this.FillDropdownValuesLeagues();
+            this.FillDropdownValuesStudents();
             return View();
         }
         
@@ -30,11 +43,12 @@ namespace EmployeeManager.Controllers
                 this._dbContext.Gameweeks.Add(model);
                 this._dbContext.SaveChanges();
 
-                return RedirectToAction();
+                return RedirectToAction(nameof(Index));
             }
             else
             {
                 this.FillDropdownValuesLeagues();
+                this.FillDropdownValuesStudents();
                 return View();
             }
         }
@@ -55,6 +69,24 @@ namespace EmployeeManager.Controllers
             }
 
             ViewBag.PossibleLeagues = selectItems;
+        }
+        
+        private void FillDropdownValuesStudents()
+        {
+            var selectItems = new List<SelectListItem>();
+            
+            var listItem = new SelectListItem();
+            listItem.Text = "Student";
+            listItem.Value = "";
+            selectItems.Add(listItem);
+
+            foreach (var category in this._dbContext.Students)
+            {
+                listItem = new SelectListItem(category.FullName, category.Id.ToString());
+                selectItems.Add(listItem);
+            }
+
+            ViewBag.PossibleStudents = selectItems;
         }
     }
 }

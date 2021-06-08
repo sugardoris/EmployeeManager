@@ -30,13 +30,13 @@ namespace EmployeeManager.DAL
             modelBuilder.Entity<League>().HasData(new League() 
                 {Id = 1, Name = "Prva hrvatska nogometna liga", NumberOfGameweeks = 36});
             modelBuilder.Entity<League>().HasData(new League() 
-                {Id = 1, Name = "Premier liga", NumberOfGameweeks = 38});
+                {Id = 2, Name = "Premier liga", NumberOfGameweeks = 38});
             modelBuilder.Entity<League>().HasData(new League() 
-                {Id = 1, Name = "Serie A", NumberOfGameweeks = 40});
+                {Id = 3, Name = "Serie A", NumberOfGameweeks = 40});
             modelBuilder.Entity<League>().HasData(new League() 
-                {Id = 1, Name = "French Ligue 1", NumberOfGameweeks = 38});
+                {Id = 4, Name = "French Ligue 1", NumberOfGameweeks = 38});
             modelBuilder.Entity<League>().HasData(new League() 
-                {Id = 1, Name = "Bundesliga", NumberOfGameweeks = 38});
+                {Id = 5, Name = "Bundesliga", NumberOfGameweeks = 38});
             
         }
     }
