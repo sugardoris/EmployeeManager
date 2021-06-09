@@ -15,9 +15,9 @@
         </ol>
     </nav>
 
-    <div class="card col-4 box-shadow">
+    <div class="card col-5 box-shadow">
         <div class="card-body">
-            <h4 class="card-title">@Html.DisplayFor(model => model.Name)</h4>
+            <h4 class="card-title mb-2">@Html.DisplayFor(model => model.Name)</h4>
             <p class="card-text"><strong>Broj kola:</strong> @Html.DisplayFor(model => model.NumberOfGameweeks)</p>
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Uredi</a>
         </div>

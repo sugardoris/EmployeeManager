@@ -23,8 +23,29 @@ namespace EmployeeManager.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact(string lang)
         {
+            switch (lang)
+            {
+                case "en":
+                    ViewBag.Title = "Contact";
+                    ViewBag.Message = "Contact us for more information or any questions you may have:";
+                    ViewBag.Address = "Address:";
+                    ViewBag.Phone = "Phone:";
+                    break;
+                case "hr":
+                    ViewBag.Title = "Kontakt";
+                    ViewBag.Message = "Za više informacija i za bilo kakva pitanja kontaktirajte nas:";
+                    ViewBag.Address = "Adresa:";
+                    ViewBag.Phone = "Telefon:";
+                    break;
+                default:
+                    ViewBag.Title = "Kontakt";
+                    ViewBag.Message = "Za više informacija i za bilo kakva pitanja kontaktirajte nas:";
+                    ViewBag.Address = "Adresa:";
+                    ViewBag.Phone = "Telefon:";
+                    break;
+            }
             return View();
         }
 

@@ -83,6 +83,17 @@ namespace EmployeeManager
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapControllerRoute(
+                    name: "kontakt",
+                    pattern: "kontakt/{lang:alpha:length(2)}",
+                    defaults: new { controller = "Home", action = "Contact" });
+                
+                endpoints.MapControllerRoute(
+                    name: "pregled-liga",
+                    pattern: "pregled-liga",
+                    defaults: new { controller = "League", action = "Index" });
+                
                 endpoints.MapRazorPages();
             });
         }
