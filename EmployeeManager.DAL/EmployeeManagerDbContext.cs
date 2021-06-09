@@ -1,4 +1,5 @@
 ﻿using EmployeeManager.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +38,6 @@ namespace EmployeeManager.DAL
                 {Id = 4, Name = "French Ligue 1", NumberOfGameweeks = 38});
             modelBuilder.Entity<League>().HasData(new League() 
                 {Id = 5, Name = "Bundesliga", NumberOfGameweeks = 38});
-            
         }
     }
 }

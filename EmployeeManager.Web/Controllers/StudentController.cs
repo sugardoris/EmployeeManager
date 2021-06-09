@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EmployeeManager.DAL;
 using EmployeeManager.Model;
 using EmployeeManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace EmployeeManager.Controllers
             _dbContext = dbContext;
         }
         
+        [Authorize]
         public IActionResult Index(StudentFilterModel filter)
         {
             var studentQuery = this._dbContext.Students
@@ -47,6 +49,7 @@ namespace EmployeeManager.Controllers
             return View(model);
         }
         
+        [Authorize]
         public IActionResult Details(int? id = null)
         {
             var student = this._dbContext.Students
@@ -89,12 +92,14 @@ namespace EmployeeManager.Controllers
             return View(student);
         }
 
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             this.FillDropdownValuesCities();
             return View();
         }
         
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public IActionResult Create(Student model)
         {
@@ -112,6 +117,7 @@ namespace EmployeeManager.Controllers
             }
         }
         
+        [Authorize(Roles = "Manager")]
         [ActionName(nameof(Edit))]
         public IActionResult Edit(int id)
         {
@@ -120,6 +126,7 @@ namespace EmployeeManager.Controllers
             return View(model);
         }
         
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ActionName(nameof(Edit))]
         public async Task<IActionResult> EditPost(int id)
@@ -137,6 +144,7 @@ namespace EmployeeManager.Controllers
             return View();
         }
         
+        [Authorize(Roles = "Manager")]
         public IActionResult Delete(int id)
         {
             var student = _dbContext.Students.FirstOrDefault(p => p.Id == id);

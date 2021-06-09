@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EmployeeManager.DAL;
 using EmployeeManager.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,12 +16,14 @@ namespace EmployeeManager.Controllers
             _dbContext = dbContext;
         }
 
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             this.FillDropdownValuesStudents();
             return View();
         }
         
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public IActionResult Create(StudentContract model)
         {

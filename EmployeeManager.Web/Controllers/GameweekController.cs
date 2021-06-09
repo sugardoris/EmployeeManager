@@ -2,6 +2,7 @@
 using System.Linq;
 using EmployeeManager.DAL;
 using EmployeeManager.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace EmployeeManager.Controllers
             _dbContext = dbContext;
         }
         
+        [Authorize]
         public IActionResult Index()
         {
             var gameweeks = this._dbContext.Gameweeks
@@ -28,6 +30,7 @@ namespace EmployeeManager.Controllers
             return View(gameweeks);
         }
 
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             this.FillDropdownValuesLeagues();
@@ -35,6 +38,7 @@ namespace EmployeeManager.Controllers
             return View();
         }
         
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public IActionResult Create(Gameweek model)
         {
